@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liver Disease Prediction</title>
+    <link rel="stylesheet" href="/static/style.css">
+
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: #eaf4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.2);
+            width: 600px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #00796b;
+            margin-bottom: 25px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #004d40;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid #aaa;
+            font-size: 15px;
+        }
+
+        button, a.btn {
+            width: 48%;
+            padding: 12px;
+            border: none;
+            background: #009879;
+            color: white;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 15px;
+            text-align: center;
+            display: inline-block;
+            text-decoration: none;
+            transition: 0.3s ease;
+        }
+
+        button:hover, a.btn:hover {
+            background: #007f67;
+        }
+
+        .btn-row {
+            display: flex;
+            justify-content: space-between;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Liver Disease Prediction</h1>
+
+        <form action="/predict" method="POST">
+
+            <div class="form-group">
+                <label>Age:</label>
+                <input type="number" step="any" name="Age" required>
+            </div>
+
+            <div class="form-group">
+                <label>Gender:</label>
+                <select name="Gender" required>
+                    <option value="1">Male</option>
+                    <option value="0">Female</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Total Bilirubin (Normal: 0.1 - 1.2):</label>
+                <input type="number" step="any" name="Total_Bilirubin" required>
+            </div>
+
+            <div class="form-group">
+                <label>Direct Bilirubin (Normal: 0.0 - 0.3):</label>
+                <input type="number" step="any" name="Direct_Bilirubin" required>
+            </div>
+
+            <div class="form-group">
+                <label>Alkaline Phosphotase (Normal: 44 - 147):</label>
+                <input type="number" step="any" name="Alkaline_Phosphotase" required>
+            </div>
+
+            <div class="form-group">
+                <label>Alamine Aminotransferase ALT (Normal: 7 - 56):</label>
+                <input type="number" step="any" name="Alamine_Aminotransferase" required>
+            </div>
+
+            <div class="form-group">
+                <label>Aspartate Aminotransferase AST (Normal: 10 - 40):</label>
+                <input type="number" step="any" name="Aspartate_Aminotransferase" required>
+            </div>
+
+            <div class="form-group">
+                <label>Total Proteins (Normal: 6 - 8.3):</label>
+                <input type="number" step="any" name="Total_Proteins" required>
+            </div>
+
+            <div class="form-group">
+                <label>Albumin (Normal: 3.5 - 5.5):</label>
+                <input type="number" step="any" name="Albumin" required>
+            </div>
+
+            <div class="form-group">
+                <label>A/G Ratio (Normal: 1.0 - 2.5):</label>
+                <input type="number" step="any" name="Albumin_and_Globulin_Ratio" required>
+            </div>
+
+            <div class="btn-row">
+                <button type="submit">Predict</button>
+                <a href="/dashboard" class="btn">Open Dashboard</a>
+            </div>
+
+        </form>
+    </div>
+</body>
+</html>

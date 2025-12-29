@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Dashboard - Liver Analytics</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="/static/style.css">
+    <style>
+        .card { background: #fff; padding:20px; border-radius:10px; box-shadow:0 2px 8px rgba(0,0,0,0.1); }
+        .grid { display:grid; grid-template-columns: 1fr 1fr; gap:20px; margin:20px 0; }
+        .center { text-align:center; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Liver Health Dashboard</h1>
+
+        <div class="grid">
+            <div class="card center">
+                <h3>Total Records</h3>
+                <h2>{{ total }}</h2>
+            </div>
+            <div class="card center">
+                <h3>Diseased vs Healthy</h3>
+                <canvas id="pieChart"></canvas>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>Average ALT & AST Over Time</h3>
+            <canvas id="lineChart"></canvas>
+        </div>
+
+        <div class="card">
+            <h3>Top Abnormal Parameter Counts</h3>
+            <ul>
+                <li>Total Bilirubin high: {{ param_counts[0] }}</li>
+                <li>ALT high: {{ param_counts[1] }}</li>
+                <li>AST high: {{ param_counts[2] }}</li>
+                <li>ALP high: {{ param_counts[3] }}</li>
+            </ul>
+        </div>
+
+        <a href="/" class="btn">Back to Predict</a>
+    </div>
+
+    <script>
+    // Pie chart data
+    const diseased = {{ diseased }};
+    const healthy = {{ healthy }};
+
+    const ctxPie = document.getElementById('pieChart').getContext('2d');
+    new Chart(ctxPie, {
+        type: 'pie',
+        data: {
+            labels: ['Diseased','Healthy'],
+            datasets: [{
+                data: [diseased, healthy],
+                backgroundColor: ['#e74c3c','#2ecc71']
+            }]
+        }
+    });
+
+    // Line chart data (ALT & AST)
+    const dates = {{ dates|tojson }};
+    const avgAlts = {{ avg_alts|tojson }};
+    const avgAsts = {{ avg_asts|tojson }};
+
+    const ctxLine = document.getElementById('lineChart').getContext('2d');
+    new Chart(ctxLine, {
+        type: 'line',
+        data: {
+            labels: dates,
+            datasets: [{
+                label: 'Avg ALT',
+                data: avgAlts,
+                borderColor: '#e67e22',
+                fill: false
+            },{
+                label: 'Avg AST',
+                data: avgAsts,
+                borderColor: '#3498db',
+                fill: false
+            }]
+        },
+        options: { scales: { x: { display: true } } }
+    });
+    </script>
+</body>
+</html>

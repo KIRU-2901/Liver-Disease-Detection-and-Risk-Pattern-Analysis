@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Prediction Result</title>
+    <link rel="stylesheet" href="/static/style.css">
+   <style>
+    body {
+        font-family: 'Segoe UI', sans-serif;
+        background: #eaf4f4;
+        margin: 0;               /* NEW */
+        padding: 0;              /* NEW */
+        display: flex;
+        justify-content: center;
+        align-items: flex-start; /* FIXED: no vertical stretching */
+        min-height: 100vh;
+    }
+
+    .container {
+        background: white;
+        padding: 40px;
+        border-radius: 15px;
+        box-shadow: 0 0 15px rgba(0,0,0,0.2);
+        width: 90%;             /* NEW: FULL WIDTH LOOK */
+        max-width: 800px;       /* NEW: Perfect alignment */
+        margin-top: 40px;       /* NEW: give space from top */
+        box-sizing: border-box; /* NEW */
+    }
+
+    h1 {
+        color: #00796b;
+        margin-bottom: 15px;
+        text-align: center;
+    }
+
+    h3 {
+        color: #004d40;
+        margin-top: 25px;
+    }
+
+    ul {
+        padding-left: 20px;
+        color: #333;
+    }
+
+    img {
+        display: block;
+        margin: 25px auto;
+        width: 100%;           /* NEW */
+        max-width: 550px;      /* NEW */
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    a.btn {
+        display: inline-block;
+        text-decoration: none;
+        color: white;
+        background: #009879;
+        padding: 10px 20px;
+        border-radius: 5px;
+        margin: 10px 8px;
+        transition: 0.3s ease;
+    }
+
+    a.btn:hover {
+        background: #007f67;
+    }
+</style>
+
+</head>
+<body>
+    <div class="container">
+
+        <!-- MAIN RESULT -->
+        <h1>{{ result }}</h1>
+        <h2>Stage: {{ stage }}</h2>
+
+        <!-- RISK SCORE -->
+        <div class="risk-box">
+            <h3>🧪 Risk Assessment</h3>
+            <p><strong>Risk Level:</strong> {{ risk_level }}</p>
+            <p><strong>Risk Score:</strong> {{ risk_score }}</p>
+        </div>
+
+        <!-- DOCTOR INSIGHTS -->
+        <div class="insight-box">
+            <h3>👨‍⚕️ Doctor Insights:</h3>
+            <p>{{ insights }}</p>
+        </div>
+
+        <!-- PREVENTIVE MEASURES -->
+        <h3>🩺 Preventive Measures:</h3>
+        <ul>
+            {% for tip in tips %}
+                <li>{{ tip }}</li>
+            {% endfor %}
+        </ul>
+
+        <!-- CHART -->
+        <h3>📊 Parameter Visualization:</h3>
+        <img src="/static/{{ chart_image }}" alt="Chart">
+
+        <!-- SUMMARY -->
+        <p style="font-weight:600; color:#333;">{{ summary }}</p>
+
+        <!-- DOWNLOAD PDF BUTTON -->
+        <a href="/static/{{ pdf_file }}" class="btn" download>Download PDF Report</a>
+
+        <!-- BUTTONS -->
+        <a href="/dashboard" class="btn">Open Dashboard</a>
+        <a href="/" class="btn">Predict Again</a>
+    </div>
+</body>
+</html>

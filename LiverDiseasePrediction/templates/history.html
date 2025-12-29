@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Patient History</title>
+    <link rel="stylesheet" href="/static/style.css">
+
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: #eaf4f4;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            padding-top: 40px;
+        }
+
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 900px;
+            box-shadow: 0 0 12px rgba(0,0,0,0.15);
+        }
+
+        h1 {
+            text-align: center;
+            color: #00796b;
+            margin-bottom: 25px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        th, td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+            text-align: center;
+            font-size: 15px;
+        }
+
+        th {
+            background: #009879;
+            color: white;
+        }
+
+        tr:hover {
+            background: #f1f1f1;
+        }
+
+        .status-normal {
+            color: #2e7d32;
+            font-weight: bold;
+        }
+
+        .status-disease {
+            color: #c62828;
+            font-weight: bold;
+        }
+
+        .btn {
+            display: inline-block;
+            background: #009879;
+            color: white;
+            text-decoration: none;
+            padding: 10px 18px;
+            border-radius: 5px;
+            margin-top: 25px;
+            transition: 0.3s ease;
+        }
+
+        .btn:hover {
+            background: #007f67;
+        }
+    </style>
+
+</head>
+<body>
+
+    <div class="container">
+        <h1>📁 Patient Medical History</h1>
+
+        {% if rows|length == 0 %}
+            <p style="text-align:center; font-size:17px; color:#444;">
+                No medical records found. Please perform a prediction first.
+            </p>
+        {% else %}
+
+        <table>
+            <tr>
+                <th>Date</th>
+                <th>Total Bilirubin</th>
+                <th>ALT</th>
+                <th>AST</th>
+                <th>Albumin</th>
+                <th>Stage</th>
+                <th>Result</th>
+            </tr>
+
+            {% for row in rows %}
+            <tr>
+                <td>{{ row[0] }}</td>
+                <td>{{ row[1] }}</td>
+                <td>{{ row[2] }}</td>
+                <td>{{ row[3] }}</td>
+                <td>{{ row[4] }}</td>
+                <td>{{ row[5] }}</td>
+
+                <td>
+                    {% if row[6] == 1 %}
+                        <span class="status-disease">Disease</span>
+                    {% else %}
+                        <span class="status-normal">Normal</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+
+        {% endif %}
+
+        <div style="text-align:center;">
+            <a href="/" class="btn">🔙 Back</a>
+        </div>
+
+    </div>
+
+</body>
+</html>
